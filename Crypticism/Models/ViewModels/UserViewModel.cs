@@ -12,6 +12,9 @@ namespace Crypticism.Models.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        [Display(Name = "IsCompany")]
+        public bool IsCompany { get; set; } = false;
     }
 
 }

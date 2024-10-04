@@ -1,10 +1,11 @@
-﻿@{
-    string username = null;
-    if (User.Identity.IsAuthenticated)
-    {
-        username = User.Identity.Name;
-    }
-}
+﻿@using Crypticism.Controllers
+@* @{ *@
+@*     string username = null; *@
+@*     if (User.Identity.IsAuthenticated) *@
+@*     { *@
+@*         username = User.Identity.Name; *@
+@*     } *@
+@* } *@
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,15 +28,14 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                @if (username == null)
+                @if (!User.Identity.IsAuthenticated)
                 {
                     <li>@Html.ActionLink("Log In", "Login", "User")</li>
                     <li>@Html.ActionLink("Sign Up", "Signup", "User")</li>
                 }
                 else
                 {
-                    // TODO : MAke an action link for username oo get user to dashboard
-                    <li>Hello @username</li>
+                    <li>@Html.ActionLink("Profile", "LoadDashboard", "User")</li>
                     <li>@Html.ActionLink("Sign Out", "Signout", "User")</li>
                 }
             </ul>
