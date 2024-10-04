@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Crypticism.Models.DatabaseModel;
 using Crypticism.Models;
 
@@ -14,8 +16,7 @@ namespace Crypticism.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
-
+            return View(_db.Review.OrderByDescending(r => r.CreatedDate).ToList());
+        } 
     }
 }

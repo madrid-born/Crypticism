@@ -1,6 +1,14 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model List<Crypticism.Models.Review>
 
-    <h1>ASP.NET</h1>
- 
+<div>
+    @foreach (var review in Model)
+    {
+        <h1>@review.Title</h1>
+        <h2>@review.CompanyId</h2>
+        <h2>@review.Content</h2>
+        <hr/>
+    }
+</div>
