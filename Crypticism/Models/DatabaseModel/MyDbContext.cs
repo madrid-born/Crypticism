@@ -4,22 +4,22 @@ namespace Crypticism.Models.DatabaseModel
 {
     public class MyDbContext : DbContext
     {
-        public MyDbContext() : base(@"Server=localhost;Database=Cripticism;Integrated Security=True;") { }
+        public MyDbContext() : base(@"Server=localhost;Database=Crypticism;Integrated Security=True;") { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Company> Company { get; set; }
         
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Review> Review { get; set; }
         
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Comment> Comment { get; set; }
 
         // protected override void OnModelCreating(DbModelBuilder modelBuilder)
         // {
         //     // Define the relationship between User and Company
         //     modelBuilder.Entity<User>()
         //         .HasRequired(u => u.Company)
-        //         .WithMany(c => c.Users)
+        //         .WithMany(c => c.User)
         //         .HasForeignKey(u => u.CompanyId)
         //         .WillCascadeOnDelete(false);  // No cascading delete
         //
@@ -29,12 +29,12 @@ namespace Crypticism.Models.DatabaseModel
 
         // public User GetUserById(int id)
         // {
-        //     return Users.SingleOrDefault(u => u.Id == id);
+        //     return User.SingleOrDefault(u => u.Id == id);
         // }
         //
         // public User GetUserByUsername(string username)
         // {
-        //     return Users.SingleOrDefault(u => u.Username == username);
+        //     return User.SingleOrDefault(u => u.Username == username);
         // }
     }
 }

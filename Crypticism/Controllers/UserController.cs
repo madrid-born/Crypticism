@@ -30,7 +30,7 @@ namespace Crypticism.Controllers
         {
             if (!ModelState.IsValid) return View(model);
             
-            var user = _db.Users.SingleOrDefault(u => u.Username == model.Username);
+            var user = _db.User.SingleOrDefault(u => u.Username == model.Username);
             if (user != null && user.PasswordHash == BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(model.Password))))
             {
                 FormsAuthentication.SetAuthCookie(user.Username, false);
@@ -48,7 +48,7 @@ namespace Crypticism.Controllers
 
             if (!ModelState.IsValid) return View(model);
 
-            if (_db.Users.Any(u => u.Username == model.Username))
+            if (_db.User.Any(u => u.Username == model.Username))
             {
                 ModelState.AddModelError("", "this username has already been existed");
                 return RedirectToAction("Signup", "User");
@@ -58,7 +58,7 @@ namespace Crypticism.Controllers
                 Username = model.Username,
                 PasswordHash = BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(model.Password))),
             };
-            _db.Users.Add(user);
+            _db.User.Add(user);
             _db.SaveChanges();
             FormsAuthentication.SetAuthCookie(user.Username, false);
             return RedirectToAction("Index", "Home");

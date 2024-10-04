@@ -32,7 +32,7 @@ namespace Crypticism.Controllers
                 {
                     Content = model.Content
                 };
-                _db.Reviews.Add(review);
+                _db.Review.Add(review);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
