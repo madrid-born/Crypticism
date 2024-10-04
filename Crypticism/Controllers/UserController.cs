@@ -25,6 +25,16 @@ namespace Crypticism.Controllers
             return View();
         }
         
+        public ActionResult CompanySignUp()
+        {
+            return View();
+        }
+        
+        public ActionResult EmployeeSignUp()
+        {
+            return View();
+        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserViewModel model)
@@ -56,10 +66,45 @@ namespace Crypticism.Controllers
                 _db.User.Add(user);
                 _db.SaveChanges();
                 FormsAuthentication.SetAuthCookie(user.Id.ToString(), false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(model.IsCompany? "CompanySignUp" : "EmployeeSignUp", "User");
             }
             ModelState.AddModelError("", "this username has already been existed");
             return RedirectToAction("Signup", "User");
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CompanySignUp(CompanyViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            var company = new Company
+            {
+                UserId = Convert.ToInt32(User.Identity.Name),
+                Email = model.Email,
+                CompanyName = model.CompanyName,
+            };
+            _db.Company.Add(company);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EmployeeSignUp(EmployeeViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            var employee = new Employee
+            {
+                UserId = Convert.ToInt32(User.Identity.Name),
+                Name = model.Name,
+                Email = model.Email,
+                CompanyId = _db.Company.SingleOrDefault(c => c.CompanyName == model.CompanyName).Id,
+                IsVerified = model.PersonnelCode == null ? false : false,
+                // TODO : handle IsUserVerified
+            };
+            _db.Employee.Add(employee);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult LoadDashboard()
