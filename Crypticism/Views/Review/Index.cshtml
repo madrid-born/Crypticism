@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Crypticism.Models.Review>
+
+<h1>Review List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>User</th>
+            <th>Content</th>
+            <!-- Add other columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model)
+        {
+            <tr>
+                @* <td>@review.Company.CompanyName</td> *@
+                @* <td>@review.User.Username</td> *@
+                <td>@review.Content</td>
+                <!-- Add other columns as needed -->
+            </tr>
+        }
+    </tbody>
+</table>
